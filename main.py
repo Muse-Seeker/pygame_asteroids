@@ -34,6 +34,16 @@ def main():
 
         updatable.update(dt)
 
+        for asteroid in asteroids:
+            if asteroid.collides_with(player):
+                print("Game over!")
+                exit()
+
+            for shot in shots:
+                if asteroid.collides_with(shot):
+                    shot.kill()
+                    asteroid.split()
+
         screen.fill("black")
 
         for obj in drawable:
@@ -43,11 +53,6 @@ def main():
 
         # limit the framerate to 60 FPS
         dt = clock.tick(60) / 1000
-
-        for asteroid in asteroids:
-            if player.collision(asteroid):
-                print("Game over")
-                exit()
 
 if __name__ == "__main__":
     main()
